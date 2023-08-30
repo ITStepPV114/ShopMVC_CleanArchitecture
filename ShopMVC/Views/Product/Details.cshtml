@@ -1,0 +1,49 @@
+﻿@model Product
+@{
+    string productImagePlaceholder = @"https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png";
+}
+<div class="container">
+    <div class="card">
+        <h5 class="card-header">Info Product</h5>
+        <div id="carousel-@Model.Id" class="carousel carousel-dark slide" data-bs-ride="carousel">
+
+            <div class="carousel-inner">
+                <div class="carousel-item active product-card-img" data-bs-interval="10000">
+                    <img src="@(Model.ImagePath??productImagePlaceholder)" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item product-card-img " data-bs-interval="2000">
+                    <img src="https://d10mhq06fikmnr.cloudfront.net/catalog/product/s/h/sharkoon_tg7m_os_1.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item product-card-img ">
+                    <img src="https://st.depositphotos.com/1000128/2939/i/450/depositphotos_29394915-stock-photo-desktop-computer-with-touchscreen-interface.jpg" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@Model.Id" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel-@Model.Id" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-text">@Model.Description</p>
+            <p class="card-text">Category:<em/><strong> @Model.Category?.Name </strong> </em> </p>
+            <p class="fw-bold">Price <span class="badge bg-primary">@Model.Price</span></p>
+             @*href="~\Product\Index"*@
+            @if (ViewBag.ReturnUrl == null)
+            {
+                <a asp-controller="Product" asp-action="Index" class="btn btn-primary">Go to Back</a>
+            }
+            else
+            {
+                <a href="@ViewBag.ReturnUrl" class="btn btn-primary">Go to Back</a>
+                
+            }
+            <a asp-controller="Product" asp-action="Delete" asp-route-id=@Model.Id class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+</div>
