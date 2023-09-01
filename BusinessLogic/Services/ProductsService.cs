@@ -26,7 +26,14 @@ namespace BusinessLogic.Services
 
         public void Delete(int? id)
         {
-            throw new NotImplementedException();
+
+            var product = Get(id);
+            if (product != null)
+            {
+                 _context.Products.Remove(product);
+                _context.SaveChanges();
+
+            }
         }
 
         public void Edit(Product product)
