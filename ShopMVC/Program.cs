@@ -46,6 +46,7 @@ builder.Services.AddSession(options => {
 //di remote services
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IOrdersService, OrdersService>();
 
 builder.Services.AddHttpContextAccessor();
 
