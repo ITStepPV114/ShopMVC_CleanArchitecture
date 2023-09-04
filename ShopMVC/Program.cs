@@ -9,6 +9,9 @@ using ShopMVC;
 using BusinessLogic.Interfaces;
 using BusinessLogic.Services;
 using ShopMVC.Services;
+using NuGet.Protocol.Core.Types;
+using DataAccess.Interfaces;
+using DataAccess;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -48,6 +51,15 @@ builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+//add IRepositore for all Entities
+
+//builder.Services.AddScoped<IRepository<Product>, Repository<Product>>();
+//builder.Services.AddScoped<IRepository<Category>, Repository<Category>>();
+// OR
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
+
 
 builder.Services.AddHttpContextAccessor();
 
