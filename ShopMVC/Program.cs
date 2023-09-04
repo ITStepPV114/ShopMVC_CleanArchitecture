@@ -47,6 +47,7 @@ builder.Services.AddSession(options => {
 builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddHttpContextAccessor();
 
