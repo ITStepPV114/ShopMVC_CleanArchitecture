@@ -1,4 +1,5 @@
-﻿using DataAccess.Entities;
+﻿using BusinessLogic.DTOs;
+using DataAccess.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace BusinessLogic.Interfaces
 {
     public interface ICartService
     {
-        IEnumerable<Product> GetProducts();
+        IEnumerable<ProductDto> GetProducts();
         void Add(int id);
         void Remove(int id);
     }

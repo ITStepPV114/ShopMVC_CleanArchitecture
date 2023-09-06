@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model List<BusinessLogic.DTOs.ProductDto>
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -37,7 +37,7 @@
                             </td>
                             <td>@product.Name</td>
                             <td>@product.Price</td>
-                            <td>@product.Category?.Name</td>
+                            <td>@product.CategoryName</td>
                             <td>
                                 <div class="d-flex justify-content-evenly">
                                     <a asp-controller="Product" asp-action="Details" asp-route-id=@product.Id asp-route-returnUrl="@Context.Request.Path" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover me-2">

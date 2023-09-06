@@ -1,4 +1,4 @@
-﻿@model Product
+﻿@model BusinessLogic.DTOs.ProductDto
 @{
     string productImagePlaceholder = @"https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png";
 }
@@ -31,7 +31,7 @@
         <div class="card-body">
             <h5 class="card-title">@Model.Name</h5>
             <p class="card-text">@Model.Description</p>
-            <p class="card-text">Category:<em/><strong> @Model.Category?.Name </strong> </em> </p>
+            <p class="card-text">Category:<em/><strong> @Model.CategoryName </strong> </em> </p>
             <p class="fw-bold">Price <span class="badge bg-primary">@Model.Price</span></p>
              @*href="~\Product\Index"*@
             @if (ViewBag.ReturnUrl == null)

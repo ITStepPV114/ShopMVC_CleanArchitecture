@@ -1,4 +1,4 @@
-﻿@model List<Product>
+﻿@model List<ProductDto>
 @{
     string productImagePlaceholder = @"https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-15.png";
 }
@@ -30,7 +30,7 @@
                             </td>
                             <td>@product.Name</td>
                             <td>@product.Price</td>
-                            <td>@product.Category?.Name</td>
+                            <td>@product.CategoryName</td>
                             <td>
                                 <div class="d-flex justify-content-evenly">
                                     
