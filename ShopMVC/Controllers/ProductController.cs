@@ -57,15 +57,15 @@ namespace ShopMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ProductDto productDto)
+        public IActionResult Create(CreateProductDto createProductDto)
         {
             if (!ModelState.IsValid)
             {
                 var categories = _productsServices.GetAllCategory();
                 ViewBag.ListCategory = new SelectList(categories, "Id", "Name");
-                return View(productDto);
+                return View(createProductDto);
             }
-            _productsServices.Creat(productDto);
+            _productsServices.Creat(createProductDto);
             return RedirectToAction("Index");
         }
 
@@ -85,7 +85,7 @@ namespace ShopMVC.Controllers
 
 
         [HttpPost]
-        public IActionResult Edit(ProductDto productDto)
+        public IActionResult Edit(CreateProductDto productDto)
         {
             _productsServices.Edit(productDto);
             return RedirectToAction("Index");

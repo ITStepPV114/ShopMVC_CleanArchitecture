@@ -51,6 +51,7 @@ builder.Services.AddScoped<IProductsService, ProductsService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrdersService, OrdersService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IFileService, FileService>();
 
 //add IRepositore for all Entities
 

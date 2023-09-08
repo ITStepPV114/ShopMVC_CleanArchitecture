@@ -12,30 +12,35 @@ namespace BusinessLogic.Services
         private readonly IRepository<Product> _productRepo;
         private readonly IRepository<Category> _categoryRepo;
         private readonly IMapper _mapper;
+        private readonly IFileService _fileService;
 
         //private readonly ShopMVCDbContext _context;
 
         public ProductsService(IRepository<Product> productRepo,
                                 IRepository<Category> categoryRepo,
-                                IMapper mapper)
+                                IMapper mapper,
+                                IFileService fileService)
         {
             _productRepo = productRepo;
             _categoryRepo = categoryRepo;
             _mapper = mapper;
+            _fileService = fileService;
         }
 
-        public void Creat(ProductDto productDto)
+        public void Creat(CreateProductDto productDto)
         {
-            //Product product = new Product()
-            //{   
-            //    Id=productDto.Id,
-            //    Name=productDto.Name,
-            //    Description=productDto.Description, 
-            //    Price=productDto.Price, 
-            //    ImagePath=productDto.ImagePath,
-            //    CategoryId=productDto.CategoryId,
-            //};
-            var product=_mapper.Map<Product>(productDto);    // ProductDto => Product (Entity)
+            //save image to server
+            string imagePath = _fileService.SaveProductImage(productDto.Image).Result;
+
+            Product product = new Product()
+            {
+                Name = productDto.Name,
+                Description = productDto.Description,
+                Price = productDto.Price,
+                ImagePath = imagePath,
+                CategoryId = productDto.CategoryId,
+            };
+            //var product=_mapper.Map<Product>(productDto);    // ProductDto => Product (Entity)
             _productRepo.Insert(product);
             _productRepo.Save();
         }
@@ -52,18 +57,21 @@ namespace BusinessLogic.Services
             }
         }
 
-        public void Edit(ProductDto productDto)
+        public void Edit(CreateProductDto productDto)
         {
-            //Product product = new Product()
-            //{
-            //    Id = productDto.Id,
-            //    Name = productDto.Name,
-            //    Description = productDto.Description,
-            //    Price = productDto.Price,
-            //    ImagePath = productDto.ImagePath,
-            //    CategoryId = productDto.CategoryId,
-            //};
-            var product = _mapper.Map<Product>(productDto);
+            //delete oldfile from "images"
+
+            //save new file
+
+            Product product = new Product()
+            {
+                Name = productDto.Name,
+                Description = productDto.Description,
+                Price = productDto.Price,
+                //ImagePath = productDto.ImagePath,
+                CategoryId = productDto.CategoryId,
+            };
+            // var product = _mapper.Map<Product>(productDto);
             _productRepo.Update(product);
             _productRepo.Save();
         }
