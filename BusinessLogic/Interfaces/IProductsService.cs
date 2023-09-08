@@ -15,8 +15,9 @@ namespace BusinessLogic.Interfaces
        // List<ProductDto> GetByOrderName();
         List<ProductDto> GetByOrderPrice();
         ProductDto? Get(int? id);
+        EditProductDto? GetEditProductDto(int? id);
         void Creat(CreateProductDto product);
-        void Edit(CreateProductDto product);
+        void Edit(EditProductDto product);
         void Delete(int? id);
     }
 }

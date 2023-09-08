@@ -1,5 +1,5 @@
 ﻿@*@using DataAccess.Entities*@
-@model BusinessLogic.DTOs.CreateProductDto
+@model BusinessLogic.DTOs.EditProductDto
 
 <div class="container">
     <div class="row">
@@ -22,6 +22,7 @@
             <input asp-for="Price" type="number" step="0.01" class="form-control">
         </div>
         <div class="col-md-6">
+            
             <label asp-for="Image" class="form-label">Image Path URL</label>
             <input asp-for="Image" type="file" class="form-control">
         </div>
@@ -33,8 +34,7 @@
         <div class="col-12">
             <button type="submit" class="btn btn-primary">Save</button>
         </div>
-    </form>
-
-</div>
+     </form>
+ </div>
 
 @*HTMLTagHelper*@

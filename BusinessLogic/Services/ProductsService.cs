@@ -3,7 +3,7 @@ using BusinessLogic.DTOs;
 using BusinessLogic.Interfaces;
 using DataAccess.Entities;
 using DataAccess.Interfaces;
-
+using Microsoft.AspNetCore.Http;
 
 namespace BusinessLogic.Services
 {
@@ -49,6 +49,7 @@ namespace BusinessLogic.Services
         {
 
             var product = _productRepo.GetByID(id);
+            _fileService.DeleteProductImage(product.ImagePath);
             if (product != null)
             {
                 _productRepo.Delete(product);
@@ -57,23 +58,22 @@ namespace BusinessLogic.Services
             }
         }
 
-        public void Edit(CreateProductDto productDto)
+        public void Edit(EditProductDto productDto)
         {
             //delete oldfile from "images"
-
-            //save new file
-
-            Product product = new Product()
+            var productOld = Get(productDto.Id);
+            if (productOld != null)
             {
-                Name = productDto.Name,
-                Description = productDto.Description,
-                Price = productDto.Price,
-                //ImagePath = productDto.ImagePath,
-                CategoryId = productDto.CategoryId,
-            };
-            // var product = _mapper.Map<Product>(productDto);
-            _productRepo.Update(product);
-            _productRepo.Save();
+                //save new file
+                _fileService.DeleteProductImage(productOld.ImagePath);
+                //save image to server
+                string imagePath = _fileService.SaveProductImage(productDto.Image).Result;
+                productDto.ImagePath = imagePath;
+
+                var product = _mapper.Map<Product>(productDto);
+                _productRepo.Update(product);
+                _productRepo.Save();
+            }
         }
 
         public ProductDto? Get(int? id)
@@ -146,5 +146,20 @@ namespace BusinessLogic.Services
                 CategoryName = product.Category.Name
             }).ToList();
         }
+
+        public EditProductDto? GetEditProductDto(int? id)
+        {
+            var product = Get(id);
+
+            return new EditProductDto()
+            {
+                Id= product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                ImagePath = product.ImagePath,  
+                CategoryId = product.CategoryId,
+            };
     }
+}
 }

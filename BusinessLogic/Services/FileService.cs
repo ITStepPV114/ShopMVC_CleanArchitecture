@@ -1,6 +1,7 @@
 ﻿using BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,17 @@ namespace BusinessLogic.Services
             _environment = environment;
         }
 
-        public Task DeleteProductImage(string imagePath)
+        public async Task DeleteProductImage(string imagePath)
         {
-            
-            throw new NotImplementedException();
-        }
+            string root = _environment.WebRootPath;
+            var oldFile = Path.Combine(root, imagePath);
+            if (File.Exists(oldFile))
+              {
+               File.Delete(oldFile);
+            }
+         }
 
-        public async Task<string> SaveProductImage(IFormFile file)
+       public async Task<string> SaveProductImage(IFormFile file)
         {
             // get path to "wwwroot" for ASP.NET Core
             string root = _environment.WebRootPath;
@@ -39,7 +44,7 @@ namespace BusinessLogic.Services
             string imageFullPath = Path.Combine(root, imagePath);
 
             //save file on the folder images
-
+            
             using (FileStream fileStream = new FileStream(imageFullPath, FileMode.Create))
             {
                 await file.CopyToAsync(fileStream);
@@ -47,5 +52,6 @@ namespace BusinessLogic.Services
 
             return imagePath;
         }
+
     }
 }
